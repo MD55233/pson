@@ -4,8 +4,6 @@ import {
   Button,
   Flex,
   Icon,
-  Image,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -15,16 +13,13 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 // Custom Components
-import { ItemContent } from 'components/menu/ItemContent';
 import { SearchBar } from 'components/navbar/searchBar/SearchBar';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
 // Assets
-import navImage from 'assets/img/layout/Navbar.png';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
-import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
 export default function HeaderLinks(props) {
   const { secondary } = props;
@@ -34,15 +29,11 @@ export default function HeaderLinks(props) {
   let menuBg = useColorModeValue('white', 'navy.800');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.700', 'brand.400');
-  const ethColor = useColorModeValue('gray.700', 'white');
   const borderColor = useColorModeValue('#E6ECFA', 'rgba(135, 140, 189, 0.3)');
-  const ethBg = useColorModeValue('secondaryGray.300', 'navy.900');
-  const ethBox = useColorModeValue('white', 'navy.800');
   const shadow = useColorModeValue(
     '14px 17px 40px 4px rgba(112, 144, 176, 0.18)',
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)',
   );
-  const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
   return (
     <Flex
       w={{ sm: '100%', md: 'auto' }}
@@ -64,8 +55,8 @@ export default function HeaderLinks(props) {
         me="10px"
         borderRadius="30px"
       />
-     
-      
+
+
       <SidebarResponsive routes={routes} />
       <Menu>
         <MenuButton p="0px">
@@ -104,8 +95,8 @@ export default function HeaderLinks(props) {
             </Text>
           </Flex>
           <Flex flexDirection="column">
-           <h1>No Notifications</h1>
-            
+            <h1>No Notifications</h1>
+
           </Flex>
         </MenuList>
       </Menu>
@@ -121,7 +112,7 @@ export default function HeaderLinks(props) {
             me="10px"
           />
         </MenuButton>
-        </Menu>
+      </Menu>
 
       <Button
         variant="no-hover"

@@ -19,14 +19,12 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	useToast,
-	Container
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
-import FileManager from './FileManager';
 
 export default function AdminNavbar(props) {
 	const [scrolled, setScrolled] = useState(false);
@@ -48,11 +46,6 @@ export default function AdminNavbar(props) {
 		const files = Array.from(e.target.files);
 		setSelectedFiles(files);
 		setValidatedFiles([]); // Reset validated files
-	};
-
-	// Function to normalize headers (trim spaces and lower case)
-	const normalizeHeaders = (headers) => {
-		return headers.map((header) => header.trim().toLowerCase());
 	};
 
 	const validateHeaders = async () => {
@@ -88,7 +81,7 @@ export default function AdminNavbar(props) {
 
 					const headers = sheetData[0].map((h) => h?.toString().trim().toLowerCase());
 					const isValid = expectedHeaders1.every(h => headers.includes(h)) ||
-									expectedHeaders2.every(h => headers.includes(h));
+						expectedHeaders2.every(h => headers.includes(h));
 
 					if (isValid) {
 						fileIsValid = true;
@@ -152,10 +145,10 @@ export default function AdminNavbar(props) {
 			});
 			return;
 		}
-	
+
 		const formData = new FormData();
 		validatedFiles.forEach((file) => formData.append('files', file));
-	
+
 		try {
 			// Pass fileType as a query parameter
 			await axios.post(`http://localhost:8000/upload-excel?fileType=${type}`, formData, {
@@ -163,7 +156,7 @@ export default function AdminNavbar(props) {
 					'Content-Type': 'multipart/form-data'
 				}
 			});
-	
+
 			toast({
 				title: 'Upload Successful',
 				description: `Files uploaded successfully to ${type}.`,
@@ -171,7 +164,7 @@ export default function AdminNavbar(props) {
 				duration: 3000,
 				isClosable: true
 			});
-	
+
 			setValidatedFiles([]); // Clear files after upload
 			onClose();
 		} catch (error) {
@@ -301,53 +294,53 @@ export default function AdminNavbar(props) {
 					</Link>
 				</Box>
 				<Box>
-				<Flex alignItems="center" p="10px" boxShadow={scrolled ? 'md' : 'none'}>
-				<Button colorScheme="teal" onClick={onOpen} ml="10px" borderRadius="5">
-  Upload file
-</Button>
-
-	  {/* Add the FileManager button */}
-	
-</Flex>
-
-
-			{/* Upload Modal */}
-			<Modal isOpen={isOpen} onClose={onClose}>
-				<ModalOverlay />
-				<ModalContent>
-					<ModalHeader>Upload Excel Files</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody>
-						<Input type="file" multiple onChange={handleFileChange} />
-						<Button
-							mt="10px"
-							colorScheme="blue"
-							isLoading={isValidating}
-							onClick={validateHeaders}
-						>
-							Validate Files
+					<Flex alignItems="center" p="10px" boxShadow={scrolled ? 'md' : 'none'}>
+						<Button colorScheme="teal" onClick={onOpen} ml="10px" borderRadius="5">
+							Upload file
 						</Button>
-					</ModalBody>
-					<ModalFooter>
-						<Button
-							colorScheme="green"
-							isDisabled={!validatedFiles.length}
-							onClick={() => uploadFiles('lubricants')}
-						>
-							Save to Lubricants
-						</Button>
-						<Button
-							colorScheme="orange"
-							ml="10px"
-							isDisabled={!validatedFiles.length}
-							onClick={() => uploadFiles('petroleum')}
-						>
-							Save to Petroleum
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
-		</Box>
+
+						{/* Add the FileManager button */}
+
+					</Flex>
+
+
+					{/* Upload Modal */}
+					<Modal isOpen={isOpen} onClose={onClose}>
+						<ModalOverlay />
+						<ModalContent>
+							<ModalHeader>Upload Excel Files</ModalHeader>
+							<ModalCloseButton />
+							<ModalBody>
+								<Input type="file" multiple onChange={handleFileChange} />
+								<Button
+									mt="10px"
+									colorScheme="blue"
+									isLoading={isValidating}
+									onClick={validateHeaders}
+								>
+									Validate Files
+								</Button>
+							</ModalBody>
+							<ModalFooter>
+								<Button
+									colorScheme="green"
+									isDisabled={!validatedFiles.length}
+									onClick={() => uploadFiles('lubricants')}
+								>
+									Save to Lubricants
+								</Button>
+								<Button
+									colorScheme="orange"
+									ml="10px"
+									isDisabled={!validatedFiles.length}
+									onClick={() => uploadFiles('petroleum')}
+								>
+									Save to Petroleum
+								</Button>
+							</ModalFooter>
+						</ModalContent>
+					</Modal>
+				</Box>
 				<Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
 					<AdminNavbarLinks
 						onOpen={props.onOpen}
@@ -359,10 +352,10 @@ export default function AdminNavbar(props) {
 				</Box>
 			</Flex>
 			{secondary ? <Text color='white'>{message}</Text> : null}
-			
+
 		</Box>
-	
-	
+
+
 	);
 }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   SimpleGrid,
- 
   Icon,
   Text,
   useColorModeValue,
@@ -12,8 +11,7 @@ import IconBox from "components/icons/IconBox";
 import { MdPeople, MdShoppingCart, MdAccountBalanceWallet } from "react-icons/md";
 import { Bar, Line } from "react-chartjs-2";
 import axios from "axios";
-import LoadingModal from "./components/LoadingModal";
-import CheckTable from './components/CheckTable'; // Adjust the path based on your file structure
+import LoadingModal from "./components/LoadingModal"; // Adjust the path based on your file structure
 
 
 // Register Chart.js components
@@ -203,7 +201,7 @@ export default function UserReports() {
               <YearlySalesLineChart yearlySales={yearlySales} brandColor={brandColor} axisColor={axisColor} />
             </ChartCard>
           </SimpleGrid>
-          
+
         </>
       )}
     </Box>

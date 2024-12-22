@@ -1,6 +1,5 @@
 // Chakra imports
 import { Portal, Box, useDisclosure } from '@chakra-ui/react';
-import Footer from 'components/footer/FooterAdmin.js';
 // Layout components
 import Navbar from 'components/navbar/NavbarAdmin.js';
 import Sidebar from 'components/sidebar/Sidebar.js';
@@ -130,7 +129,7 @@ export default function Dashboard(props) {
             transitionTimingFunction="linear, linear, ease"
           >
             <Portal>
-            <Box>
+              <Box>
                 <Navbar
                   onOpen={onOpen}
                   logoText={'Sales Data Management'}
@@ -161,7 +160,7 @@ export default function Dashboard(props) {
               </Box>
             ) : null}
             <Box>
-             
+
             </Box>
           </Box>
         </SidebarContext.Provider>

@@ -1,8 +1,6 @@
 import {
-  Button,
   Flex,
   Image,
-  Link,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -62,14 +60,14 @@ export default function SidebarDocs() {
           px='10px'
           mb='6px'
           textAlign='center'>
-        Upload files only have Header Valid Headers! like:
-        'sales grp', 'customer code', 'customer name',
-        'material code', 'shipping point name', 'vehicle text',
-        'billing date', 'quantity in su'
+          Upload files only have Header Valid Headers! like:
+          'sales grp', 'customer code', 'customer name',
+          'material code', 'shipping point name', 'vehicle text',
+          'billing date', 'quantity in su'
         </Text>
       </Flex>
-     
-     
+
+
     </Flex>
   );
 }

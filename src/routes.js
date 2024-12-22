@@ -3,9 +3,7 @@ import React from 'react';
 import { Icon } from '@chakra-ui/react';
 import {
   MdBarChart,
-  MdPerson,
   MdHome,
-  MdLock,
   MdOutlineSource,
 } from 'react-icons/md';
 
@@ -17,7 +15,6 @@ import DataTables from 'views/admin/dataTables';
 
 
 // Auth Imports
-import SignInCentered from 'views/auth/signIn';
 
 const routes = [
   {

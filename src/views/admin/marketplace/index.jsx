@@ -115,7 +115,7 @@ export default function FetchDataPage() {
       y: {
         beginAtZero: true,
         ticks: {
-          
+
           callback: function (value) {
             return value.toLocaleString();
           },
@@ -131,7 +131,7 @@ export default function FetchDataPage() {
       },
     },
   };
-  
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <LoadingModal isOpen={isLoading} />

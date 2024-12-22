@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -53,7 +53,7 @@ export default function CheckTable() {
 
   const generateMonthRange = () => {
     return [
-      "January", "February", "March", "April", "May", "June", 
+      "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
   };
@@ -155,185 +155,185 @@ export default function CheckTable() {
     setFilteredData(data);  // Reset to original data
   };
 
-// Calculate the sum of the `quantity in su` field in filtered data
-const calculateFilteredSum = () => {
+  // Calculate the sum of the `quantity in su` field in filtered data
+  const calculateFilteredSum = () => {
     return filteredData.reduce((sum, row) => {
       return sum + (row["quantity in su"] || 0);  // Add quantity in su, default to 0 if not available
     }, 0);
   };
-  
+
   return (
-     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-    <Card flexDirection="column" w="100%" px="0px" overflowX="auto" padding="12px">
-      <Alert status="warning" mb="4">
-        <AlertIcon />
-        If the data is too large, May cause lag. Work slow for efficiency
-      </Alert>
+    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+      <Card flexDirection="column" w="100%" px="0px" overflowX="auto" padding="12px">
+        <Alert status="warning" mb="4">
+          <AlertIcon />
+          If the data is too large, May cause lag. Work slow for efficiency
+        </Alert>
 
-      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
-        <Text fontSize="22px" fontWeight="700">
-          Data Table
-        </Text>
+        <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
+          <Text fontSize="22px" fontWeight="700">
+            Data Table
+          </Text>
 
-        <Flex align="center" gap="4">
-        <FileManager />
-          <Select
-            placeholder="Select Year"
-            width="150px"
-            onChange={(e) => setSelectedYear(e.target.value)}
-            value={selectedYear || ""}
-          >
-            {yearOptions.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </Select>
-          <Select
-            placeholder="Select Month"
-            width="150px"
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            value={selectedMonth || ""}
-          >
-            {monthOptions.map((month, index) => (
-              <option key={index} value={month}>
-                {month}
-              </option>
-            ))}
-          </Select>
-          <Button  colorScheme="teal" onClick={fetchTableData} borderRadius="5">
-            Fetch Data
-          </Button>
-        </Flex>
-      </Flex>
-
-      {/* Display Totals */}
-      <Box mb="4">
-        <Text fontSize="16px" fontWeight="600" mb="2">
-          Total Records: {data.length}
-        </Text>
-        <Text fontSize="16px" fontWeight="600" mb="2">
-          Filtered Records: {filteredData.length}
-        </Text>
-        <Text fontSize="16px" fontWeight="600" mb="2">
-          Filtered Sum of Quantity: {calculateFilteredSum()}
-        </Text>
-      </Box>
-
-      {/* Filters Section */}
-      <Box mb="4" >
-        <Text fontSize="16px" fontWeight="600" mb="2" >
-          Apply Filters
-        </Text>
-        <Flex mb="4" gap="4" >
-          {columns.map((column) => (
+          <Flex align="center" gap="4">
+            <FileManager />
             <Select
-              key={column.accessorKey}
-              placeholder={`Filter by ${column.header}`}
-              value={filterValues[column.accessorKey] || ""}
-              onChange={(e) => {
-                setFilterValues({
-                  ...filterValues,
-                  [column.accessorKey]: e.target.value,
-                });
-              }}
+              placeholder="Select Year"
+              width="150px"
+              onChange={(e) => setSelectedYear(e.target.value)}
+              value={selectedYear || ""}
             >
-              {filterOptions[column.accessorKey]?.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+              {yearOptions.map((year) => (
+                <option key={year} value={year}>
+                  {year}
                 </option>
               ))}
             </Select>
-          ))}
-        </Flex>
-        <Button
-          colorScheme="teal"
-          onClick={applyFilter}
-          isLoading={isFiltering}
-          loadingText="Applying Filter"
-        >
-          Apply Filter
-        </Button>
-        <Button ml="4" onClick={resetFilter}>
-          Reset Filter
-        </Button>
-      </Box>
-
-      <Box>
-        {loading ? (
-          <Flex justify="center" align="center" height="300px">
-            <Spinner size="xl" />
+            <Select
+              placeholder="Select Month"
+              width="150px"
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              value={selectedMonth || ""}
+            >
+              {monthOptions.map((month, index) => (
+                <option key={index} value={month}>
+                  {month}
+                </option>
+              ))}
+            </Select>
+            <Button colorScheme="teal" onClick={fetchTableData} borderRadius="5">
+              Fetch Data
+            </Button>
           </Flex>
-        ) : (
-          <Table variant="simple" color="gray.500" mb="24px" mt="12px" >
-            <Thead >
-              <Tr>
-                {columns.map((column) => (
-                  <Th key={column.accessorKey} padding="12px">
-                    <Flex align="center">
-                      {column.header}
-                      <IconButton
-                        ml="2"
-                        size="sm"
-                        icon={<FiFilter />}
-                        onClick={() => {
-                          setCurrentFilterColumn(column.accessorKey);
-                          setShowFilterPopup(true);
-                        }}
-                        aria-label={`Filter ${column.header}`}
-                      />
-                    </Flex>
-                  </Th>
+        </Flex>
+
+        {/* Display Totals */}
+        <Box mb="4">
+          <Text fontSize="16px" fontWeight="600" mb="2">
+            Total Records: {data.length}
+          </Text>
+          <Text fontSize="16px" fontWeight="600" mb="2">
+            Filtered Records: {filteredData.length}
+          </Text>
+          <Text fontSize="16px" fontWeight="600" mb="2">
+            Filtered Sum of Quantity: {calculateFilteredSum()}
+          </Text>
+        </Box>
+
+        {/* Filters Section */}
+        <Box mb="4" >
+          <Text fontSize="16px" fontWeight="600" mb="2" >
+            Apply Filters
+          </Text>
+          <Flex mb="4" gap="4" >
+            {columns.map((column) => (
+              <Select
+                key={column.accessorKey}
+                placeholder={`Filter by ${column.header}`}
+                value={filterValues[column.accessorKey] || ""}
+                onChange={(e) => {
+                  setFilterValues({
+                    ...filterValues,
+                    [column.accessorKey]: e.target.value,
+                  });
+                }}
+              >
+                {filterOptions[column.accessorKey]?.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
                 ))}
-              </Tr>
-            </Thead>
-            <Tbody>
-              {filteredData.length > 0 ? (
-                filteredData.map((row, rowIndex) => (
-                  <Tr key={rowIndex}>
-                    {columns.map((column) => (
-                      <Td key={column.accessorKey} padding="12px">{row[column.accessorKey]} </Td>
-                    ))}
-                  </Tr>
-                ))
-              ) : (
+              </Select>
+            ))}
+          </Flex>
+          <Button
+            colorScheme="teal"
+            onClick={applyFilter}
+            isLoading={isFiltering}
+            loadingText="Applying Filter"
+          >
+            Apply Filter
+          </Button>
+          <Button ml="4" onClick={resetFilter}>
+            Reset Filter
+          </Button>
+        </Box>
+
+        <Box>
+          {loading ? (
+            <Flex justify="center" align="center" height="300px">
+              <Spinner size="xl" />
+            </Flex>
+          ) : (
+            <Table variant="simple" color="gray.500" mb="24px" mt="12px" >
+              <Thead >
                 <Tr>
-                  <Td colSpan={columns.length}>No data available</Td>
+                  {columns.map((column) => (
+                    <Th key={column.accessorKey} padding="12px">
+                      <Flex align="center">
+                        {column.header}
+                        <IconButton
+                          ml="2"
+                          size="sm"
+                          icon={<FiFilter />}
+                          onClick={() => {
+                            setCurrentFilterColumn(column.accessorKey);
+                            setShowFilterPopup(true);
+                          }}
+                          aria-label={`Filter ${column.header}`}
+                        />
+                      </Flex>
+                    </Th>
+                  ))}
                 </Tr>
-              )}
-            </Tbody>
-          </Table>
-        )}
-      </Box>
+              </Thead>
+              <Tbody>
+                {filteredData.length > 0 ? (
+                  filteredData.map((row, rowIndex) => (
+                    <Tr key={rowIndex}>
+                      {columns.map((column) => (
+                        <Td key={column.accessorKey} padding="12px">{row[column.accessorKey]} </Td>
+                      ))}
+                    </Tr>
+                  ))
+                ) : (
+                  <Tr>
+                    <Td colSpan={columns.length}>No data available</Td>
+                  </Tr>
+                )}
+              </Tbody>
+            </Table>
+          )}
+        </Box>
 
-      <Modal isOpen={showFilterPopup} onClose={resetFilter}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Filter by {currentFilterColumn}</ModalHeader>
-          <ModalBody>
-            <Input
-              placeholder={`Enter ${currentFilterColumn} value to filter`}
-              onChange={(e) => {
-                setFilterValues({
-                  ...filterValues,
-                  [currentFilterColumn]: e.target.value,
-                });
-              }}
-              value={filterValues[currentFilterColumn] || ""}
-            />
-          </ModalBody>
+        <Modal isOpen={showFilterPopup} onClose={resetFilter}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Filter by {currentFilterColumn}</ModalHeader>
+            <ModalBody>
+              <Input
+                placeholder={`Enter ${currentFilterColumn} value to filter`}
+                onChange={(e) => {
+                  setFilterValues({
+                    ...filterValues,
+                    [currentFilterColumn]: e.target.value,
+                  });
+                }}
+                value={filterValues[currentFilterColumn] || ""}
+              />
+            </ModalBody>
 
-          <ModalFooter>
-            <Button variant="ghost" onClick={resetFilter}>
-              Close
-            </Button>
-            <Button colorScheme="teal" onClick={applyFilter}>
-              Apply Filter
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </Card>
+            <ModalFooter>
+              <Button variant="ghost" onClick={resetFilter}>
+                Close
+              </Button>
+              <Button colorScheme="teal" onClick={applyFilter}>
+                Apply Filter
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Card>
     </Box>
   );
 }
