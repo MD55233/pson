@@ -9,6 +9,26 @@ const app = express();
 app.use(cors());
 
 const PORT = 8000;
+// Ensure required directories exist
+// Utility function to ensure required directories exist
+const ensureDirectories = (paths) => {
+    paths.forEach((folderPath) => {
+        if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath, { recursive: true });
+            console.log(`Created directory: ${folderPath}`);
+        }
+    });
+};
+
+// Call this function at the beginning of the server setup
+const initializeServer = () => {
+    const requiredDirectories = [
+        path.join(__dirname, 'uploads/excel-files/lubricants'),
+        path.join(__dirname, 'uploads/excel-files/petroleum'),
+    ];
+    ensureDirectories(requiredDirectories);
+};
+initializeServer();
 
 // Middleware to parse "fileType" from form-data
 const parseFileType = (req, res, next) => {
@@ -17,6 +37,7 @@ const parseFileType = (req, res, next) => {
     }
     next();
 };
+
 
 // Dynamic storage setup
 const storage = multer.diskStorage({
@@ -52,7 +73,7 @@ app.post('/upload-excel', parseFileType, upload.array('files', 5), (req, res) =>
         res.status(500).send({ message: 'Failed to upload files.', error: error.message });
     }
 });
-{/*-------------------------------- Delete files ------------------------------------------*/}
+{/*-------------------------------- Delete files ------------------------------------------*/ }
 // Route to fetch all files based on fileType
 app.get('/fetch-files', (req, res) => {
     try {
@@ -107,7 +128,7 @@ app.delete('/delete-all-files', (req, res) => {
 });
 
 
-{/*-------------------------------- Validate Header in sheets ------------------------------------------*/}
+{/*-------------------------------- Validate Header in sheets ------------------------------------------*/ }
 
 // Validate headers function
 const validateHeaders = (headers) => {
@@ -128,7 +149,7 @@ const validateHeaders = (headers) => {
         headers.every(h => expectedHeaders2.includes(h))
     );
 };
-{/*--------------------------------//Get Header Indexes------------------------------------------*/}
+{/*--------------------------------//Get Header Indexes------------------------------------------*/ }
 //Get Header Indexes
 const getColumnIndices = (headers, requiredHeaders) => {
     const normalizedHeaders = headers.map(h => h.trim().toLowerCase());
@@ -141,7 +162,7 @@ const getColumnIndices = (headers, requiredHeaders) => {
 
     return indices;
 };
-{/*--------------------------------process a single Excel file for home page  ------------------------------------------*/}
+{/*--------------------------------process a single Excel file for home page  ------------------------------------------*/ }
 // Function to process a single Excel file
 const processExcelFile = (filePath) => {
     try {
@@ -209,7 +230,7 @@ const processExcelFile = (filePath) => {
         throw error;
     }
 };
-{/*--------------------------------process all files in a directory for home page------------------------------------------*/}
+{/*--------------------------------process all files in a directory for home page------------------------------------------*/ }
 // Function to process all files in a directory
 const processDirectory = (directoryPath) => {
     try {
@@ -243,7 +264,7 @@ const processDirectory = (directoryPath) => {
     }
 };
 
-{/*--------------------------------year ministates for home page ------------------------------------------*/}
+{/*--------------------------------year ministates for home page ------------------------------------------*/ }
 // API route to fetch aggregated data
 app.get('/fetch-excel-data', async (req, res) => {
     try {
@@ -266,7 +287,7 @@ app.get('/fetch-excel-data', async (req, res) => {
     }
 });
 
-{/*--------------------------------year charts for home page ------------------------------------------*/}
+{/*--------------------------------year charts for home page ------------------------------------------*/ }
 
 
 // API route to fetch total sales by year for charts/graphs
@@ -296,7 +317,7 @@ app.get('/fetch-sales-by-year', async (req, res) => {
 });
 
 
-{/*-------------------------------- Fetch Data by Sales Group ------------------------------------------*/}
+{/*-------------------------------- Fetch Data by Sales Group ------------------------------------------*/ }
 app.get('/fetch-data-by-sales-group', async (req, res) => {
     try {
         const type = validateType(req.query.type);
@@ -308,7 +329,7 @@ app.get('/fetch-data-by-sales-group', async (req, res) => {
     }
 });
 
-{/*-------------------------------- Fetch Data by Customer Code ------------------------------------------*/}
+{/*-------------------------------- Fetch Data by Customer Code ------------------------------------------*/ }
 app.get('/fetch-data-by-customer-code', async (req, res) => {
     try {
         const type = validateType(req.query.type);
@@ -320,7 +341,7 @@ app.get('/fetch-data-by-customer-code', async (req, res) => {
     }
 });
 
-{/*-------------------------------- Fetch Data by Material Code ------------------------------------------*/}
+{/*-------------------------------- Fetch Data by Material Code ------------------------------------------*/ }
 app.get('/fetch-data-by-material-code', async (req, res) => {
     try {
         const type = validateType(req.query.type);
@@ -332,7 +353,7 @@ app.get('/fetch-data-by-material-code', async (req, res) => {
     }
 });
 
-{/*-------------------------------- Utility Functions ------------------------------------------*/}
+{/*-------------------------------- Utility Functions ------------------------------------------*/ }
 
 // Function to validate query parameter
 const validateType = (type) => {
@@ -415,7 +436,7 @@ const processExcelFileByHeader = (filePath, groupByHeader) => {
 };
 
 
-{/*-------------------------------- Data table  ------------------------------------------*/}
+{/*-------------------------------- Data table  ------------------------------------------*/ }
 
 // Process the Excel file and filter data based on year and month
 const processExcelFileForTable = (filePath, yearFilter, monthFilter) => {
