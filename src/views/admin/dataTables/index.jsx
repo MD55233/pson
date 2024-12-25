@@ -75,7 +75,7 @@ export default function CheckTable() {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/fetch-table-data/${selectedYear}/${selectedMonth}`
+        `https://pso-backend.vercel.app/fetch-table-data/${selectedYear}/${selectedMonth}`
       );
       const result = await response.json();
 

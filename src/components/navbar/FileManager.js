@@ -32,7 +32,7 @@ const FileManager = () => {
   const fetchFiles = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8000/fetch-files`);
+      const response = await axios.get(`https://pso-backend.vercel.app/fetch-files`);
       setFiles(response.data);
     } catch (error) {
       console.error("Error fetching files:", error);
@@ -46,7 +46,7 @@ const FileManager = () => {
     setCurrentOperation(`Deleting ${fileName} from ${type}...`);
     try {
       await axios.delete(
-        `http://localhost:8000/delete-file?fileType=${type}&fileName=${fileName}`
+        `https://pso-backend.vercel.app/delete-file?fileType=${type}&fileName=${fileName}`
       );
       fetchFiles();
     } catch (error) {
@@ -60,7 +60,7 @@ const FileManager = () => {
   const deleteAllFiles = async (type) => {
     setCurrentOperation(`Deleting all files from ${type}...`);
     try {
-      await axios.delete(`http://localhost:8000/delete-all-files?fileType=${type}`);
+      await axios.delete(`https://pso-backend.vercel.app/delete-all-files?fileType=${type}`);
       fetchFiles();
     } catch (error) {
       console.error("Error deleting all files:", error);

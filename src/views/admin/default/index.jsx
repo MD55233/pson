@@ -169,8 +169,8 @@ export default function UserReports() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get("http://localhost:8000/fetch-excel-data");
-        const yearlySalesResponse = await axios.get("http://localhost:8000/fetch-sales-by-year");
+        const response = await axios.get("https://pso-backend.vercel.app/fetch-excel-data");
+        const yearlySalesResponse = await axios.get("https://pso-backend.vercel.app/fetch-sales-by-year");
 
         setData(response.data);
         setYearlySales(yearlySalesResponse.data);
