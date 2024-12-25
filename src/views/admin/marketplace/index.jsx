@@ -30,11 +30,11 @@ export default function FetchDataPage() {
     let url = "";
     try {
       if (selectedOption === "sales-group") {
-        url = `http://localhost:8000/fetch-data-by-sales-group?type=${dataType}`;
+        url = `https://pso-backend.vercel.app/fetch-data-by-sales-group?type=${dataType}`;
       } else if (selectedOption === "customer-code") {
-        url = `http://localhost:8000/fetch-data-by-customer-code?type=${dataType}`;
+        url = `https://pso-backend.vercel.app/fetch-data-by-customer-code?type=${dataType}`;
       } else if (selectedOption === "material-code") {
-        url = `http://localhost:8000/fetch-data-by-material-code?type=${dataType}`;
+        url = `https://pso-backend.vercel.app/fetch-data-by-material-code?type=${dataType}`;
       }
 
       const response = await axios.get(url);

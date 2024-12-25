@@ -151,7 +151,7 @@ export default function AdminNavbar(props) {
 
 		try {
 			// Pass fileType as a query parameter
-			await axios.post(`http://localhost:8000/upload-excel?fileType=${type}`, formData, {
+			await axios.post(`https://pso-backend.vercel.app/upload-excel?fileType=${type}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
